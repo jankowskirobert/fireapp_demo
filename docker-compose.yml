@@ -1,0 +1,21 @@
+version: "3.2"
+services:
+  fire-app:
+    build: .
+    container_name: fireappdemo
+    environment:
+      SPRING_DATA_MONGODB_HOST: mongodb
+      SPRING_RABBITMQ_HOST: rabbitmq
+    ports:
+      - 8080:8080
+    depends_on:
+      - rabbitmq
+      - mongodb
+  rabbitmq:
+    build: rabbitmq/.
+    container_name: rabbitmq-fireapp
+    ports:
+      - 15672:15672
+  mongodb:
+    image: mongo
+    container_name: mongodb-fireapp
